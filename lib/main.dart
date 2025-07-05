@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_app/screens/home_screen.dart';
+import 'package:study_tracker_app/screens/login_screen.dart';
 import 'package:study_tracker_app/screens/welcome_screen.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/WelcomeScreen': (context) => const WelcomeScreen(),
         '/HomeScreen': (context) => const HomeScreen(),
+        '/LoginScreen':(context) => const LoginScreen(),
       },
     );
   }
