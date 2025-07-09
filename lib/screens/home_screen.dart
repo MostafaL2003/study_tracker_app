@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:study_tracker_app/util/settingsbutton.dart';
+import 'package:study_tracker_app/util/settingstextfield.dart';
 import 'package:study_tracker_app/util/track_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //(subjectName ,  timerStart , timeSpent  ,timeGoal)
     ["Math", false, 50, 1],
     ["Science", true, 30, 60],
-    ["English", false, 10, 120],
+    ["English", false, 10, 90],
   ];
   void timerStarted(int index) {
     var startTime = DateTime.now();
@@ -46,10 +48,65 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void settingsOpened(int index) {
+    int currentHours = subjectList[index][3] ~/ 60;
+    int currentMinutes = subjectList[index][3] % 60;
+
+    TextEditingController minutesController = TextEditingController(
+      text: currentMinutes.toString(),
+    );
+    TextEditingController hoursController = TextEditingController(
+      text: currentHours.toString(),
+    );
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(title: Text("Settings"));
+        return AlertDialog(
+          title: Center(child: Text("Update " + subjectList[index][0])),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Text("Hours : "),
+                  Expanded(child: InputTextField(controller: hoursController)),
+                  Text(" Minutes : "),
+                  Expanded(
+                    child: InputTextField(controller: minutesController),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Settingsbutton(
+                    buttonString: "Save",
+                    onTap: () {
+                      String hoursText = hoursController.text.trim();
+                      String minutesText = minutesController.text.trim();
+
+                      int hours = int.tryParse(hoursText) ?? 0;
+                      int minutes = int.tryParse(minutesText) ?? 0;
+
+                      int total = hours * 60 + minutes;
+
+                      setState(() {
+                        subjectList[index][3] = total;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Settingsbutton(
+                    buttonString: "Cancel",
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
       },
     );
   }
