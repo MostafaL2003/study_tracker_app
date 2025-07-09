@@ -25,7 +25,7 @@ class TrackTile extends StatelessWidget {
     String hours = (totalSeconds / 60 / 60).toStringAsFixed(4);
 
     if (secs.length == 1) {
-      secs = "0" + secs;
+      secs = "0$secs";
     }
     if (hours[1] == '.') {
       hours = hours.substring(0, 1);
@@ -78,12 +78,7 @@ class TrackTile extends StatelessWidget {
                       style: TextStyle(fontSize: 30, fontFamily: "Oswald"),
                     ),
                     Text(
-                      minToSec(timeSpent) +
-                          "-" +
-                          timeGoal.toString() +
-                          "-" +
-                          (percentCompleted() * 100).toStringAsFixed(0) +
-                          "%",
+                      "${minToSec(timeSpent)}-$timeGoal-${(percentCompleted() * 100).toStringAsFixed(0)}%",
                       style: TextStyle(
                         color: Colors.grey[600],
                         fontSize: 15,
