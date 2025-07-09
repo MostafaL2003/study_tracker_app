@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -9,7 +8,7 @@ class WelcomeScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: CupertinoColors.white,
+        backgroundColor: Colors.grey[200],
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -30,16 +29,25 @@ class WelcomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 300),
 
-            
-
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                side: BorderSide(color: Colors.black, width: 3),
+              ),
               onPressed: () {
                 Navigator.pushNamed(context, '/LoginScreen');
               },
-              
-              child: Text(
-                "Get Started",
-                style: TextStyle(fontSize: 30, color: Colors.black),
+
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Get Started",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.black,
+                    fontFamily: "Oswald",
+                  ),
+                ),
               ),
             ),
           ],
