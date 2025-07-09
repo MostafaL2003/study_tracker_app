@@ -34,13 +34,19 @@ Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & 
 ## 📱 Screenshots
 
 ### 👋 Welcome Screen
-<img src="screenshots/WelcomeScreen.png" width="300"/>
+<p align="center">
+  <img src="screenshots/WelcomeScreen.png" width="250"/>
+</p>
 
-### 🔐 Login Page
-<img src="screenshots/LoginScreen.png" width="300"/>
+### 🔐 Login Screen
+<p align="center">
+  <img src="screenshots/LoginScreen.png" width="250"/>
+</p>
 
-### 🏠 Home Page
-<img src="screenshots/HomeScreen.png" width="300"/>
+### 🏠 Home Screen
+<p align="center">
+  <img src="screenshots/HomeScreen.png" width="250"/>
+</p>
 
 ### ➕ Heatmap Page
 
