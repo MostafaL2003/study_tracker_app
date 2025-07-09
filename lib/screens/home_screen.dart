@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List subjectList = [
     //(subjectName ,  timerStart , timeSpent  ,timeGoal)
-    ["Math", false, 50, 1],
+    ["Math", false, 5000, 1000],
     ["Science", true, 30, 60],
     ["English", false, 10, 90],
   ];
@@ -47,6 +47,34 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void deleteSubject(int index) {
+    setState(() {
+      showDialog(
+        context: context,
+        builder:
+            (context) => AlertDialog(
+              title: Text("Delete '${subjectList[index][0]}'?"),
+              content: Text("Are you sure you want to delete this subject?"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Cancel"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      subjectList.removeAt(index);
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text("Delete", style: TextStyle(color: Colors.red)),
+                ),
+              ],
+            ),
+      );
+    });
+  }
+
   void settingsOpened(int index) {
     int currentHours = subjectList[index][3] ~/ 60;
     int currentMinutes = subjectList[index][3] % 60;
@@ -61,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          // ignore: prefer_interpolation_to_compose_strings
           title: Center(child: Text("Update " + subjectList[index][0])),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -68,10 +97,18 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 children: [
                   Text("Hours : "),
-                  Expanded(child: InputTextField(controller: hoursController)),
+                  Expanded(
+                    child: InputTextField(
+                      controller: hoursController,
+                      label: '',
+                    ),
+                  ),
                   Text(" Minutes : "),
                   Expanded(
-                    child: InputTextField(controller: minutesController),
+                    child: InputTextField(
+                      controller: minutesController,
+                      label: '',
+                    ),
                   ),
                 ],
               ),
@@ -114,6 +151,109 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        child: Icon(Icons.add, color: Colors.white),
+        onPressed: () {
+          TextEditingController nameController = TextEditingController();
+          TextEditingController hoursController = TextEditingController();
+          TextEditingController minutesController = TextEditingController();
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Center(
+                  child: Text(
+                    "Add subject!",
+                    style: TextStyle(fontFamily: "Oswald"),
+                  ),
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Text("Name :  "),
+                        Expanded(
+                          child: TextField(
+                            controller: nameController,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              labelText: "Subject Name",
+                              fillColor: Colors.white,
+                              filled: true,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text("Hours : "),
+                        Expanded(
+                          child: InputTextField(
+                            controller: hoursController,
+                            label: '',
+                          ),
+                        ),
+                        Text(" Minutes : "),
+                        Expanded(
+                          child: InputTextField(
+                            controller: minutesController,
+                            label: '',
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Settingsbutton(
+                          buttonString: "Add",
+                          onTap: () {
+                            String subjectName = nameController.text.trim();
+                            int hours =
+                                int.tryParse(hoursController.text.trim()) ?? 0;
+                            int minutes =
+                                int.tryParse(minutesController.text.trim()) ??
+                                0;
+                            int goalTime = hours * 60 + minutes;
+                            setState(() {
+                              subjectList.add([
+                                subjectName,
+                                false,
+                                0,
+                                goalTime,
+                              ]);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                        Settingsbutton(
+                          buttonString: "Cancel",
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
       appBar: AppBar(
         toolbarHeight: 100,
         automaticallyImplyLeading: false,
@@ -135,6 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: Colors.black,
       ),
+
       body: ListView.builder(
         itemCount: subjectList.length,
         itemBuilder: ((context, index) {
@@ -145,6 +286,9 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             settingsTap: () {
               settingsOpened(index);
+            },
+            deleteTap: () {
+              deleteSubject(index);
             },
             timeSpent: subjectList[index][2],
             timeGoal: subjectList[index][3],

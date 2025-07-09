@@ -5,6 +5,7 @@ class TrackTile extends StatelessWidget {
   final String subjectName;
   final VoidCallback onTap;
   final VoidCallback settingsTap;
+  final VoidCallback deleteTap;
   final int timeSpent;
   final int timeGoal;
   final bool timerStart;
@@ -17,24 +18,20 @@ class TrackTile extends StatelessWidget {
     required this.timeSpent,
     required this.timeGoal,
     required this.timerStart,
+    required this.deleteTap,
   });
 
-  String minToSec(int totalSeconds) {
-    String secs = (totalSeconds % 60).toString();
-    String mins = (totalSeconds / 60).toStringAsFixed(4);
-    String hours = (totalSeconds / 60 / 60).toStringAsFixed(4);
+  // ✅ Proper time formatter: returns hh:mm:ss
+  String formatTime(int totalSeconds) {
+    int hours = totalSeconds ~/ 3600;
+    int minutes = (totalSeconds % 3600) ~/ 60;
+    int seconds = totalSeconds % 60;
 
-    if (secs.length == 1) {
-      secs = "0$secs";
-    }
-    if (hours[1] == '.') {
-      hours = hours.substring(0, 1);
-    }
-    if (mins[1] == '.') {
-      mins = mins.substring(0, 1);
-    }
+    String h = hours.toString().padLeft(2, '0');
+    String m = minutes.toString().padLeft(2, '0');
+    String s = seconds.toString().padLeft(2, '0');
 
-    return "$hours:$mins:$secs";
+    return "$h:$m:$s";
   }
 
   double percentCompleted() {
@@ -52,45 +49,55 @@ class TrackTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: onTap,
-                  child: CircularPercentIndicator(
-                    progressColor: Colors.green,
-                    percent: percentCompleted(),
-                    radius: 40,
-                    center: Icon(
-                      timerStart ? Icons.pause : Icons.play_arrow,
-                      size: 40,
-                    ),
-                  ),
+            // 👇 Timer button with progress
+            GestureDetector(
+              onTap: onTap,
+              child: CircularPercentIndicator(
+                progressColor: Colors.green,
+                percent: percentCompleted(),
+                radius: 40,
+                center: Icon(
+                  timerStart ? Icons.pause : Icons.play_arrow,
+                  size: 40,
                 ),
-                SizedBox(width: 15),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      subjectName,
-                      style: TextStyle(fontSize: 30, fontFamily: "Oswald"),
-                    ),
-                    Text(
-                      "${minToSec(timeSpent)}-$timeGoal-${(percentCompleted() * 100).toStringAsFixed(0)}%",
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 15,
-                        fontFamily: "Oswald",
-                      ),
-                    ),
-                  ],
+              ),
+            ),
+            SizedBox(width: 15),
+
+            // 👇 Subject and time text
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  subjectName,
+                  style: TextStyle(fontSize: 30, fontFamily: "Oswald"),
+                ),
+                Text(
+                  "${formatTime(timeSpent)} / ${formatTime(timeGoal * 60)} (${(percentCompleted() * 100).toStringAsFixed(0)}%)",
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 15,
+                    fontFamily: "Oswald",
+                  ),
                 ),
               ],
             ),
 
-            GestureDetector(onTap: settingsTap, child: Icon(Icons.settings)),
+            Spacer(),
+
+            // 👇 Icons: settings and delete (basket style)
+            Row(
+              children: [
+                IconButton(onPressed: settingsTap, icon: Icon(Icons.settings)),
+                IconButton(
+                  onPressed: deleteTap,
+                  icon: Icon(Icons.delete_outline),
+                  tooltip: "Delete",
+                  color: Colors.redAccent,
+                ),
+              ],
+            ),
           ],
         ),
       ),

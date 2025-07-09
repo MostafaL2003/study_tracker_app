@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class InputTextField extends StatelessWidget {
-  const InputTextField({super.key, this.controller});
+  const InputTextField({super.key, this.controller, required this.label});
 
   final controller;
+  final String? label;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,8 @@ class InputTextField extends StatelessWidget {
       textAlign: TextAlign.center,
       keyboardType: TextInputType.number,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      decoration: const InputDecoration(
+      decoration:  InputDecoration(
+        labelText: label,
         fillColor: Colors.white,
         filled: true,
         enabledBorder: OutlineInputBorder(
