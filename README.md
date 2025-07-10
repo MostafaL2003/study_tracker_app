@@ -7,7 +7,7 @@ Helps students stay organized by logging subjects and tracking study time.
 
 ## 🧭 Navigation Flow
 
-Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & Time Page
+Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & Heatmap
 
 ---
 
@@ -16,9 +16,9 @@ Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & 
 - ✅ Welcome screen with branding
 - ✅ Firebase Authentication (Email/Password)
 - ✅ Home screen with subject overview
-- 🔄 Add new study subjects
+- ✅ Add new study subjects
+- ✅ Responsive design for phone/tablet
 - 🔄 Save data using Firebase Firestore
-- 🔄 Responsive design for phone/tablet
 
 ---
 
@@ -49,8 +49,9 @@ Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & 
 </p>
 
 ### ➕ Heatmap Page
-
-
+<p align="center">
+  <img src="screenshots/Heatmap" width="250"/>
+</p>
 
 ---
 
