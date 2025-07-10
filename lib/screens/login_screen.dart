@@ -88,6 +88,14 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
+            // TEMP BUTTON TO NAVIGATE
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/HomeScreen");
+              },
+              child: Text("Temp"),
+            ),
+            //
           ],
         ),
       ),

@@ -11,10 +11,12 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+Map<DateTime, int> dailyStudyTime = {};
+
 class _HomeScreenState extends State<HomeScreen> {
   List subjectList = [
     //(subjectName ,  timerStart , timeSpent  ,timeGoal)
-    ["Math", false, 5000, 1000],
+    ["Math", false, 60, 1000],
     ["Science", true, 30, 60],
     ["English", false, 10, 90],
   ];
@@ -33,6 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
           if (!subjectList[index][1]) {
             timer.cancel();
           }
+          DateTime now = DateTime.now();
+          DateTime today = DateTime(now.year, now.month, now.day);
+
+          dailyStudyTime.update(today, (value) => value + 1, ifAbsent: () => 1);
         });
         setState(() {
           var currentTime = DateTime.now();
@@ -255,6 +261,15 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/HeatmapScreen");
+            },
+            icon: Icon(Icons.calendar_month, color: Colors.white),
+            tooltip: "HeatMap",
+          ),
+        ],
         toolbarHeight: 100,
         automaticallyImplyLeading: false,
         title: Center(
