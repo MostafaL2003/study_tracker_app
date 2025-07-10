@@ -50,7 +50,7 @@ Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & 
 
 ### ➕ Heatmap Page
 <p align="center">
-  <img src="screenshots/Heatmap" width="250"/>
+  <img src="screenshots/Heatmap.png" width="250"/>
 </p>
 
 ---
