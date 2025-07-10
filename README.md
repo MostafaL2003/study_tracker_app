@@ -33,19 +33,23 @@ Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & 
 
 ## 📱 Screenshots
 
-> Screenshots are coming soon!
-
 ### 👋 Welcome Screen
-![Welcome Screen]([images/welcome.png](https://github.com/MostafaL2003/study_tracker_app/blob/9debafca73d70847e5be518e715093d4bdda87ed/screenshots/Screenshot_1751992756.png))
+<p align="center">
+  <img src="screenshots/WelcomeScreen.png" width="250"/>
+</p>
 
-### 🔐 Login Page
-![Login Screen]([images/login.png](https://github.com/MostafaL2003/study_tracker_app/blob/9debafca73d70847e5be518e715093d4bdda87ed/screenshots/Screenshot_1751992760.png))
+### 🔐 Login Screen
+<p align="center">
+  <img src="screenshots/LoginScreen.png" width="250"/>
+</p>
 
-### 🏠 Home Page
-![Home Screen]([images/home.png](https://github.com/MostafaL2003/study_tracker_app/blob/9debafca73d70847e5be518e715093d4bdda87ed/screenshots/Screenshot_1751743912.png))
+### 🏠 Home Screen
+<p align="center">
+  <img src="screenshots/HomeScreen.png" width="250"/>
+</p>
 
-### ➕ Add Subject Page
-![Add Subject]()
+### ➕ Heatmap Page
+
 
 
 ---
