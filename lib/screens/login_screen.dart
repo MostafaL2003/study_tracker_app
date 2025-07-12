@@ -1,15 +1,38 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_tracker_app/util/button.dart';
 import 'package:study_tracker_app/util/loginOptions.dart';
 import 'package:study_tracker_app/util/textfield.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final usernameController = TextEditingController();
+
   final passwordController = TextEditingController();
 
-  void logUserIn() {}
+  void logUserIn() async {
+    try {
+      // Add await here to ensure auth completes before navigation
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: usernameController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      // Add await for navigation too
+      await Navigator.pushReplacementNamed(context, "/HomeScreen");
+    } on FirebaseAuthException catch (e) {
+      print('Login failed: ${e.message}');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message ?? 'Login failed')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
