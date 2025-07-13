@@ -18,7 +18,7 @@ Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & 
 - ✅ Home screen with subject overview
 - ✅ Add new study subjects
 - ✅ Responsive design for phone/tablet
-- 🔄 Save data using Firebase Firestore
+- ✅ Save data using HIVE
 
 ---
 
@@ -28,7 +28,6 @@ Welcome Page ➜ Login / Signup (Firebase Auth) ➜ Home Page ➜ Add Subject & 
 - **Dart** – Programming language
 - **Firebase** – Backend-as-a-Service
   - Authentication
-  - Firestore Database
 - **State Management** – setState (for now)
 
 ## 📱 Screenshots
