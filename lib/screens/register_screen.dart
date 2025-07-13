@@ -4,29 +4,34 @@ import 'package:study_tracker_app/util/button.dart';
 import 'package:study_tracker_app/util/loginOptions.dart';
 import 'package:study_tracker_app/util/textfield.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key, required this.onTap});
+class RegisterScreen extends StatefulWidget {
+  RegisterScreen({super.key, this.onTap});
 
   final Function()? onTap;
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final usernameController = TextEditingController();
-
   final passwordController = TextEditingController();
+  final confirmController = TextEditingController();
 
-  void logUserIn() async {
+  void signUserIn() async {
     try {
-      // Add await here to ensure auth completes before navigation
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: usernameController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+      if (passwordController.text == confirmController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: usernameController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Passwords don't match")));
+        return; // Stop execution if passwords don't match
+      }
 
-      // Add await for navigation too
       await Navigator.pushReplacementNamed(context, "/HomeScreen");
     } on FirebaseAuthException catch (e) {
       print('Login failed: ${e.message}');
@@ -51,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 10),
               Text(
-                "Welcome back !",
+                "Create an account !",
                 style: TextStyle(fontFamily: "Oswald", fontSize: 20),
               ),
               SizedBox(height: 20),
@@ -66,18 +71,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: true,
                 controller: passwordController,
               ),
-              SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text("Forgot Password"),
-                  ),
-                ],
+              SizedBox(height: 10),
+              MyTextField(
+                hintText: 'Confirm Password',
+                obscureText: true,
+                controller: confirmController,
               ),
+              SizedBox(height: 5),
+              Row(mainAxisAlignment: MainAxisAlignment.end),
               SizedBox(height: 30),
-              MyButton(onTap: logUserIn, text: "Login"),
+              MyButton(onTap: signUserIn, text: "Sign up"),
               SizedBox(height: 30),
 
               Padding(
@@ -106,14 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Dont have an account ? "),
+                  Text("Already have an account ?"),
                   GestureDetector(
-                    onTap: () {
-                      print("Tapped Register Now");
-                      widget.onTap!();
-                    },
+                    onTap: widget.onTap,
                     child: Text(
-                      "Register now",
+                      "Login now",
                       style: TextStyle(
                         color: const Color.fromARGB(255, 30, 110, 177),
                         fontWeight: FontWeight.bold,

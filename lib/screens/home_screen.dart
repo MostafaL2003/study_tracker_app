@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_tracker_app/util/settingsbutton.dart';
 import 'package:study_tracker_app/util/settingstextfield.dart';
@@ -268,6 +269,13 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             icon: Icon(Icons.calendar_month, color: Colors.white),
             tooltip: "HeatMap",
+          ),
+          IconButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushReplacementNamed(context, '/AuthScreen');
+            },
+            icon: Icon(Icons.logout, color: Colors.white),
           ),
         ],
         toolbarHeight: 100,

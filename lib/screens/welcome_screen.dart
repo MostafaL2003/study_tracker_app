@@ -35,7 +35,7 @@ class WelcomeScreen extends StatelessWidget {
                 side: BorderSide(color: Colors.black, width: 3),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/LoginScreen');
+                Navigator.pushNamed(context, '/AuthScreen');
               },
 
               child: Padding(

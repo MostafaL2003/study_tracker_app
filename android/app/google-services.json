@@ -12,7 +12,20 @@
           "package_name": "com.example.study_tracker_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "541719658191-ahhmis1qeqg0af287g5mo54lnj09g6du.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.study_tracker_app",
+            "certificate_hash": "8bbbb1a7ff1afd3c6eac61aaa6b3a60fe52032cb"
+          }
+        },
+        {
+          "client_id": "541719658191-5so83te13e8rush5l0aiq450366rv662.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAQwy-2e16UI2IzCSOC4Pw6VwEzKz7P5JQ"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541719658191-5so83te13e8rush5l0aiq450366rv662.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "541719658191-ibr19h6snim6ku36lvr9c1htdm03pkou.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.studyTrackerApp"
+              }
+            }
+          ]
         }
       }
     }
